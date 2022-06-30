@@ -20,3 +20,6 @@ Route::get('/', function () {
 Route::get('/warga', [wargaController::class, 'index']);
 Route::get('/warga/create', [wargaController::class, 'create']);
 Route::post('/warga/store', [wargaController::class, 'store']);
+Route::get('/warga/{id}/edit', [wargaController::class, 'edit']);
+Route::put('/warga/{id}', [wargaController::class, 'update']);
+Route::delete('/warga/{id}', [wargaController::class, 'destroy']);
