@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\wargaController;
+use GuzzleHttp\Middleware;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,11 +17,18 @@ use App\Http\Controllers\wargaController;
 
 Route::get('/', function () {
     return view('welcome');
+    // echo '<h1>Laravel Warga</h1>';
 });
 
-Route::get('/warga', [wargaController::class, 'index']);
-Route::get('/warga/create', [wargaController::class, 'create']);
-Route::post('/warga/store', [wargaController::class, 'store']);
-Route::get('/warga/{id}/edit', [wargaController::class, 'edit']);
-Route::put('/warga/{id}', [wargaController::class, 'update']);
-Route::delete('/warga/{id}', [wargaController::class, 'destroy']);
+Route::middleware(['auth'])->group(function(){
+    Route::get('/warga', [wargaController::class, 'index']);
+    Route::get('/warga/create', [wargaController::class, 'create']);
+    Route::post('/warga/store', [wargaController::class, 'store']);
+    Route::get('/warga/{id}/edit', [wargaController::class, 'edit']);
+    Route::put('/warga/{id}', [wargaController::class, 'update']);
+    Route::delete('/warga/{id}', [wargaController::class, 'destroy']);
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
